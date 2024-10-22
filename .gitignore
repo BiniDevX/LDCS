@@ -1,0 +1,85 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg
+*.egg-info/
+*.pyo
+env/
+.venv/
+dist/
+build/
+pip-wheel-metadata/
+*.log
+*.sqlite3
+*.db
+*.pyc
+*.pyd
+*.pyo
+*.pdb
+*.so
+.mypy_cache/
+.pytest_cache/
+
+# FastAPI specific
+instance/
+*.env
+*.sqlite3
+/uploads/
+.DS_Store
+
+# JWT and Secret files
+*.env
+
+# SQLite database
+*.sqlite3
+
+# TensorFlow & Model files
+model/
+*.h5
+*.hdf5
+*.ckpt
+__models__/
+
+# ReportLab generated files
+*.pdf
+
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.cache/
+
+# React specific
+build/
+coverage/
+*.env.local
+*.env.development.local
+*.env.test.local
+*.env.production.local
+*.DS_Store
+
+# Ignore virtual environments
+venv/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+lerna-debug.log*
+
+# Other config files
+.vscode/
+.idea/
+*.iml
+*.sublime-workspace
+*.sublime-project
+
+# Docker
+docker-compose.yml
+Dockerfile
+
+# OS generated files
+Thumbs.db
+.DS_Store
