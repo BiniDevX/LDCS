@@ -76,10 +76,6 @@ lerna-debug.log*
 *.sublime-workspace
 *.sublime-project
 
-# Docker
-docker-compose.yml
-Dockerfile
-
 # OS generated files
 Thumbs.db
 .DS_Store

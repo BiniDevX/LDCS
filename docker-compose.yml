@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  ldcs_backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    container_name: ldcs_backend
+    env_file:
+      - .env  
+    volumes:
+      - ./backend:/app/backend
+    ports:
+      - "8000:8000"
+    networks:
+      - ldcs_network
+
+  ldcs_frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        REACT_APP_API_URL: ${REACT_APP_API_URL} # Pass the variable from .env
+    container_name: ldcs_frontend
+    ports:
+      - "3001:80"
+    networks:
+      - ldcs_network
+    volumes:
+      - ./frontend:/app  # Mount the frontend folder for development
+
+networks:
+  ldcs_network:
+    driver: bridge
