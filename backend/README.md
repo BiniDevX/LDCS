@@ -241,6 +241,3 @@ pytest
 - Model versioning to allow updating and switching between AI models seamlessly.
 - Add background tasks for batch processing of X-ray images.
 
-## License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.

@@ -222,6 +222,3 @@ npm run build
 
 The build folder will contain the optimized production files, which can be deployed on any web server (e.g., **Netlify**, **Vercel**, **AWS S3**).
 
-## License
-
-This project is licensed under the MIT License. See the [LICENSE](../LICENSE) file for details.

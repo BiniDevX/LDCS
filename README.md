@@ -230,7 +230,3 @@ The backend provides several RESTful API endpoints for managing users, patients,
   - Returns: PDF report of the diagnostic test.
 
 ---
-
-## License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
