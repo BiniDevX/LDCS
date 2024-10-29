@@ -6,8 +6,8 @@ The Lung Disease Classification System (LDCS) is a web-based application that in
 
 ## Table of Contents
 
-1. [Abstract](#abstract)
-2. [System Architecture](#system-architecture)
+1. [Abstract](#Documentation)
+2. [System Architecture](#Overview)
 3. [Features](#features)
 4. [Tech Stack](#tech-stack)
 5. [Installation](#installation)
@@ -18,13 +18,18 @@ The Lung Disease Classification System (LDCS) is a web-based application that in
 
 ---
 
-## System Architecture
+## Documentation
 
-The architecture consists of three main layers:
+Detailed documentation about the system architecture, development process, and implementation can be found on Yuque.
 
-- **Frontend (React.js)**: Provides a responsive user interface for managing patients, uploading X-rays, and viewing diagnostic results.
-- **Backend (FastAPI)**: Manages API requests, authenticates users, processes AI model inferences, and interacts with the database.
-- **Database (SQLite)**: Stores user information, patient records, diagnostic test data, and AI results.
+[Click here to access the project documentation](https://www.yuque.com/g/u47376922/rhpt8b/zwqmueh8p46rl4q3/collaborator/join?token=ql4j77UsYsrS0tra&source=doc_collaborator)
+
+## Overview
+
+This project focuses on utilizing deep learning to classify lung diseases from medical X-ray images. The system is comprised of two main parts:
+
+- [Backend README](backend/README.md): Built using FastAPI, this part manages API requests, patient data, and AI model inference.
+- [Frontend README](frontend/README.md): Developed using React.js to provide a dynamic user interface for patient management and test submissions.
 
 ---
 

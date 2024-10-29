@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faPhone,
-  faPen,
-  faSignOutAlt,
-  faUpload,
-} from "@fortawesome/free-solid-svg-icons";
+import { faPhone, faPen, faSignOutAlt, faUpload } from "@fortawesome/free-solid-svg-icons";
 import useLogout from "./useLogout";
 import defaultAvatar from "../assets/default-avatar.jpg";
+
+const apiUrl = process.env.REACT_APP_API_URL;
 
 const Profile = ({ onUpdateProfile }) => {
   const [user, setUser] = useState(null);
@@ -32,10 +29,8 @@ const Profile = ({ onUpdateProfile }) => {
   const fetchUser = async () => {
     try {
       const token = localStorage.getItem("accessToken");
-      const response = await axios.get("http://localhost:8000/api/users/me", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+      const response = await axios.get(`${apiUrl}/api/users/me`, {
+        headers: { Authorization: `Bearer ${token}` },
       });
       setUser(response.data);
       setProfileData({
@@ -61,10 +56,8 @@ const Profile = ({ onUpdateProfile }) => {
     setIsSubmitting(true);
     try {
       const token = localStorage.getItem("accessToken");
-      await axios.put("http://localhost:8000/api/users/me", profileData, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+      await axios.put(`${apiUrl}/api/users/me`, profileData, {
+        headers: { Authorization: `Bearer ${token}` },
       });
       setIsEditing(false);
       fetchUser();
@@ -88,7 +81,7 @@ const Profile = ({ onUpdateProfile }) => {
     try {
       const token = localStorage.getItem("accessToken");
       const response = await axios.post(
-        "http://localhost:8000/api/users/me/profile-picture",
+        `${apiUrl}/api/users/me/profile-picture`,
         formData,
         {
           headers: {
@@ -97,9 +90,7 @@ const Profile = ({ onUpdateProfile }) => {
           },
         }
       );
-      const updatedUrl = `${
-        response.data.profile_picture
-      }?timestamp=${new Date().getTime()}`;
+      const updatedUrl = `${response.data.profile_picture}?timestamp=${new Date().getTime()}`;
       setUser((prevUser) => ({ ...prevUser, profile_picture: updatedUrl }));
       setProfileData((prevData) => ({
         ...prevData,
@@ -119,7 +110,7 @@ const Profile = ({ onUpdateProfile }) => {
     return (
       <div className="flex justify-center items-center h-screen bg-gray-100">
         <div className="text-center text-blue-700 font-semibold text-2xl">
-          {errorMessage ? errorMessage : "Loading..."}
+          {errorMessage || "Loading..."}
         </div>
       </div>
     );
@@ -132,15 +123,18 @@ const Profile = ({ onUpdateProfile }) => {
           <img
             src={
               profileData.profile_picture
-                ? `http://localhost:8000${profileData.profile_picture}`
+                ? `${apiUrl}${profileData.profile_picture}`
                 : defaultAvatar
             }
             alt="Profile"
             className="w-28 h-28 md:w-32 md:h-32 rounded-full object-cover border-4 border-blue-500 shadow-md hover:shadow-lg transition-all"
-            onError={() => {
-              console.error(
-                "Error loading profile picture. Falling back to default."
-              );
+            onError={(e) => {
+              e.target.src = defaultAvatar;
+              setProfileData((prevData) => ({
+                ...prevData,
+                profile_picture: null, 
+              }));
+              console.error("Error loading profile picture. Falling back to default.");
             }}
           />
         </div>
@@ -180,10 +174,7 @@ const Profile = ({ onUpdateProfile }) => {
             />
           </div>
           <div className="flex flex-col items-start space-y-1">
-            <label
-              className="text-gray-600 font-medium"
-              htmlFor="contact_number"
-            >
+            <label className="text-gray-600 font-medium" htmlFor="contact_number">
               Contact Number
             </label>
             <input
@@ -209,10 +200,7 @@ const Profile = ({ onUpdateProfile }) => {
             />
           </div>
           <div className="flex flex-col items-start space-y-1">
-            <label
-              className="text-gray-600 font-medium"
-              htmlFor="profile_picture"
-            >
+            <label className="text-gray-600 font-medium" htmlFor="profile_picture">
               Profile Picture
             </label>
             <label className="cursor-pointer bg-blue-500 text-white py-2 px-5 rounded-md shadow-sm hover:bg-blue-600 hover:shadow-md transition-all">

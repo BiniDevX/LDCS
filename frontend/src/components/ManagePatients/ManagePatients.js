@@ -14,12 +14,13 @@ const ManagePatients = () => {
   const [showRegistrationForm, setShowRegistrationForm] = useState(false);
 
   const navigate = useNavigate();
+  const apiUrl = process.env.REACT_APP_API_URL;
 
   useEffect(() => {
     const fetchPatients = async () => {
       try {
         setLoading(true);
-        const response = await axios.get("http://127.0.0.1:8000/api/patients", {
+        const response = await axios.get(`${apiUrl}/api/patients`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
           },
@@ -34,7 +35,7 @@ const ManagePatients = () => {
     };
 
     fetchPatients();
-  }, []);
+  }, [apiUrl]);
 
   const handleSearch = (query) => {
     const filtered = allPatients.filter(
@@ -59,7 +60,7 @@ const ManagePatients = () => {
     setShowRegistrationForm(false);
     setLoading(true);
     axios
-      .get("http://127.0.0.1:8000/api/patients", {
+      .get(`${apiUrl}/api/patients`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
         },

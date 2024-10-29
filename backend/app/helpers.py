@@ -19,7 +19,7 @@ from reportlab.lib.units import inch
 from reportlab.lib.enums import TA_CENTER
 from passlib.context import CryptContext
 
-from app.models import Test
+from backend.app.models import Test
 
 # Set up logging
 logger = logging.getLogger("helpers")

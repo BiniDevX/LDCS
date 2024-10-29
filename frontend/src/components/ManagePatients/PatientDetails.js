@@ -25,13 +25,15 @@ const PatientDetails = () => {
   const [showTests, setShowTests] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const [searchQuery, setSearchQuery] = useState(""); // For search input
+  const [searchQuery, setSearchQuery] = useState(""); 
   const { patientId } = useParams();
   const navigate = useNavigate();
 
+  const apiUrl = process.env.REACT_APP_API_URL;
+
   // Pagination state
   const [currentPage, setCurrentPage] = useState(1);
-  const testsPerPage = 5; // Number of tests per page
+  const testsPerPage = 5;
 
   useEffect(() => {
     const fetchPatient = async () => {
@@ -40,7 +42,7 @@ const PatientDetails = () => {
         const token = localStorage.getItem("accessToken");
 
         const patientResponse = await axios.get(
-          `http://127.0.0.1:8000/api/patients/${patientId}`,
+          `${apiUrl}/api/patients/${patientId}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -57,7 +59,7 @@ const PatientDetails = () => {
     };
 
     fetchPatient();
-  }, [patientId]);
+  }, [patientId, apiUrl]);
 
   const fetchTests = async () => {
     try {
@@ -65,7 +67,7 @@ const PatientDetails = () => {
       const token = localStorage.getItem("accessToken");
 
       const testsResponse = await axios.get(
-        `http://127.0.0.1:8000/api/tests/patient/${patientId}`,
+        `${apiUrl}/api/tests/patient/${patientId}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -88,7 +90,7 @@ const PatientDetails = () => {
     if (confirmation) {
       try {
         const token = localStorage.getItem("accessToken");
-        await axios.delete(`http://127.0.0.1:8000/api/patients/${patientId}`, {
+        await axios.delete(`${apiUrl}/api/patients/${patientId}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -108,14 +110,12 @@ const PatientDetails = () => {
     setShowTests(!showTests);
   };
 
-  // Filter tests based on the search query
   const filteredTests = tests.filter(
     (test) =>
       test.result.toLowerCase().includes(searchQuery.toLowerCase()) ||
       test.id.toString().includes(searchQuery)
   );
 
-  // Pagination Logic
   const indexOfLastTest = currentPage * testsPerPage;
   const indexOfFirstTest = indexOfLastTest - testsPerPage;
   const currentTests = filteredTests.slice(indexOfFirstTest, indexOfLastTest);
@@ -138,7 +138,6 @@ const PatientDetails = () => {
         <h1 className="text-3xl font-bold text-gray-900 text-center mb-6">
           Patient Details
         </h1>
-
         <div className="space-y-6">
           <h2 className="text-2xl font-semibold text-gray-700 mb-4 text-center">
             Personal Details
@@ -195,7 +194,6 @@ const PatientDetails = () => {
         </div>
       </div>
 
-      {/* Test Results Section */}
       <div className="bg-white shadow-lg rounded-lg p-6 transition duration-200 transform hover:scale-105">
         <div className="flex items-center justify-between">
           <h2 className="text-2xl font-semibold text-gray-900">
@@ -213,7 +211,6 @@ const PatientDetails = () => {
         </div>
         {showTests && (
           <div className="mt-6 bg-gray-50 p-4 rounded-lg">
-            {/* Search Input */}
             <div className="flex items-center mb-4">
               <FontAwesomeIcon icon={faSearch} className="mr-2 text-gray-600" />
               <input
@@ -239,7 +236,6 @@ const PatientDetails = () => {
                     <TestResults result={test} />
                   </div>
                 ))}
-                {/* Pagination */}
                 <div className="flex justify-between items-center mt-4">
                   <button
                     onClick={() => paginate(currentPage - 1)}

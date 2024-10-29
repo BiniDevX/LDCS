@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import Footer from "./Footer";
 
 function Login() {
@@ -22,22 +23,24 @@ function Login() {
     setError("");
 
     try {
-      const response = await fetch("http://localhost:8000/api/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(credentials),
-      });
+      const response = await axios.post(
+        `${process.env.REACT_APP_API_URL}/api/login`,
+        credentials,
+        {
+          headers: { "Content-Type": "application/json" },
+          withCredentials: true, // to include cookies if needed
+        }
+      );
 
-      if (response.ok) {
-        const data = await response.json();
-        localStorage.setItem("accessToken", data.access_token);
-        navigate("/manage-patients");
-      } else {
-        setError("Invalid username or password. Please try again.");
-      }
+      localStorage.setItem("accessToken", response.data.access_token);
+      navigate("/manage-patients");
     } catch (error) {
+      if (error.response && error.response.status === 401) {
+        setError("Invalid username or password. Please try again.");
+      } else {
+        setError("An error occurred during login. Please try again later.");
+      }
       console.error("Login error:", error);
-      setError("An error occurred during login. Please try again later.");
     } finally {
       setLoading(false);
     }
@@ -50,7 +53,7 @@ function Login() {
           className="absolute inset-0 bg-gradient-to-br from-blue-900 to-indigo-700 opacity-70"
           style={{
             backgroundImage:
-              "url('https://images.unsplash.com/photo-1506506447183-9bfe0f82f60e')",
+              "url('https://plus.unsplash.com/premium_photo-1677507321921-e6b32f7eb6e6?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')",
             backgroundSize: "cover",
             backgroundPosition: "center",
           }}

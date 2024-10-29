@@ -3,7 +3,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from fastapi_jwt_auth import AuthJWT
 from pydantic import BaseModel
-from app.config import settings
+from backend.app.config import settings
 import logging
 
 # Set up logging

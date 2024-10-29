@@ -18,7 +18,7 @@ const TestResults = ({ result }) => {
 
     try {
       const response = await axios.get(
-        `http://127.0.0.1:8000/api/report/download/${result.id}`,
+        `${process.env.REACT_APP_API_URL}/api/report/download/${result.id}`,
         {
           responseType: "blob",
           headers: {
@@ -49,11 +49,10 @@ const TestResults = ({ result }) => {
     return "bg-red-500";
   };
 
-  // Manually convert UTC to UTC+8
   const formatDateToUTC8 = (utcDate) => {
     const date = new Date(utcDate);
-    const utcOffset = date.getTimezoneOffset(); // Timezone offset in minutes
-    const offsetInMilliseconds = (utcOffset + 480) * 60 * 1000; // 480 minutes = UTC+8
+    const utcOffset = date.getTimezoneOffset();
+    const offsetInMilliseconds = (utcOffset + 480) * 60 * 1000;
     const utc8Date = new Date(date.getTime() + offsetInMilliseconds);
 
     return utc8Date.toLocaleString("en-US", {
@@ -78,8 +77,7 @@ const TestResults = ({ result }) => {
       <ul className="text-gray-800 space-y-4">
         <li className="flex justify-between items-center border-b pb-2">
           <span className="font-medium">
-            Result{" "}
-            <FontAwesomeIcon icon={faInfoCircle} title="Predicted result" />
+            Result <FontAwesomeIcon icon={faInfoCircle} title="Predicted result" />
           </span>
           <span className="text-lg font-bold text-green-600">
             {result.result}

@@ -11,6 +11,9 @@ const SubmitTest = () => {
   const [preview, setPreview] = useState(null);
   const navigate = useNavigate();
 
+  // Get API URL from environment
+  const apiUrl = process.env.REACT_APP_API_URL;
+
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -34,7 +37,7 @@ const SubmitTest = () => {
 
     setIsSubmitting(true);
     try {
-      await axios.post("http://127.0.0.1:8000/api/tests", formData, {
+      await axios.post(`${apiUrl}/api/tests`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${token}`,

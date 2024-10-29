@@ -23,7 +23,7 @@ function EditPatient() {
         const token = localStorage.getItem("accessToken");
 
         const response = await axios.get(
-          `http://127.0.0.1:8000/api/patients/${patientId}`,
+          `${process.env.REACT_APP_API_URL}/api/patients/${patientId}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -62,7 +62,7 @@ function EditPatient() {
 
     try {
       await axios.put(
-        `http://127.0.0.1:8000/api/patients/${patientId}`,
+        `${process.env.REACT_APP_API_URL}/api/patients/${patientId}`,
         patient,
         {
           headers: {

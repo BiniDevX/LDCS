@@ -7,10 +7,10 @@ from pydantic import BaseModel, Field
 from passlib.context import CryptContext
 from typing import Optional
 import os
-from app.models import User, Patient, Test
-from app.helpers import hash_password, preprocess_image, allowed_file, generate_pdf_report, verify_password,make_prediction, visualize_prediction
-from app.extensions import AuthJWT, get_db
-from fastapi.responses import StreamingResponse
+from backend.app.models import User, Patient, Test
+from backend.app.helpers import hash_password, preprocess_image, allowed_file, generate_pdf_report, verify_password,make_prediction, visualize_prediction
+from backend.app.extensions import AuthJWT, get_db
+from fastapi.responses import StreamingResponse, JSONResponse
 import logging
 import uuid
 
